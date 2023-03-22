@@ -1,29 +1,16 @@
-import express from "express";
-import { MongoClient, ObjectId } from "mongodb";
+import express from "express"
+import cors from "cors"
 import dotenv from "dotenv";
-import cors from "cors";
-import joi from "joi";
-import bcrypt from "bcrypt";
-import { v4 as uuidV4 } from 'uuid';
+import cakesRouter from "./routes/cakeRoutes.js";
+import clientsRouter from "./routes/clientRoutes.js";
+
+dotenv.config();
 
 const app = express();
-dotenv.config();
 app.use(cors());
 app.use(express.json());
+app.use([cakesRouter, clientsRouter])
 
-const mongoClient = new MongoClient(process.env.MONGO_URI);
-let db;
-
-try {
-await mongoClient.connect();
-} catch (err) {
-console.log("Erro no mongo.conect", err.message);
-}
-
-db = mongoClient.db("DIRETORIOOOO");
-const talCollection = db.collection("COLLECTIONNNNN");
-
-// ROTAS:
-
-const port = 5000;
-app.listen(port, () => console.log(`Server running in port: ${port}`));
+app.listen(process.env.PORT, () => {
+    console.log(`Servidor rodando na porta ${process.env.PORT}`)
+})
