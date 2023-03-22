@@ -27,7 +27,7 @@ SET default_table_access_method = heap;
 CREATE TABLE public.cakes (
     id integer NOT NULL,
     name character varying NOT NULL,
-    price numeric NOT NULL,
+    price numeric,
     image character varying NOT NULL,
     description text,
     CONSTRAINT cakes_price_check CHECK ((price > (0)::numeric))

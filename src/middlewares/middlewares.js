@@ -12,12 +12,7 @@ async function validateCake(req, res, next) {
   const { name } = req.body;
 
   const existingCakeSQL = `
-    SELECT 
-      id 
-    FROM 
-      cakes
-    WHERE   
-      name=$1
+    SELECT id FROM cakes WHERE name=$1
   `;
 
   const { rowCount: existingCakeCount } = await db.query(existingCakeSQL, [name]);

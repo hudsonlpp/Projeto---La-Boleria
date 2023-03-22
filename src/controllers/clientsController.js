@@ -9,10 +9,7 @@ async function createClient(req, res) {
     // Executa a query para inserir o cliente no banco de dados
     try {
         await db.query(`
-            INSERT INTO 
-                clients (name, address, phone) 
-            VALUES 
-                ($1, $2, $3) 
+            INSERT INTO clients (name, address, phone) VALUES ($1, $2, $3) 
         `, [name, address, phone]);
         res.sendStatus(201);
     } catch (error) {
