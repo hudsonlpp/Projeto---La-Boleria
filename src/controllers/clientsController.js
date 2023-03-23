@@ -18,4 +18,34 @@ async function createClient(req, res) {
     }
 }
 
+export async function getClientsOrdersById(req, res) {
+    try {
+      const { id } = req.params;
+  
+      const query = `
+        SELECT 
+          orders.id AS "orderId",
+          orders.quantity,
+          TO_CHAR(orders."createdAt", 'YYYY-MM-DD') AS "createdAt",
+          orders."totalPrice" AS "totalPrice",
+          cakes.name AS "cakeName"
+        FROM orders
+        JOIN cakes ON orders."cakeId" = cakes.id
+        WHERE orders."clientId" = $1
+      `;
+  
+      const { rows: clients } = await db.query(query, [id]);
+  
+      if (!clients.length) {
+        return res.sendStatus(404);
+      }
+  
+      return res.status(200).send(clients);
+    } catch (error) {
+      console.log(error.message);
+      return res.sendStatus(500);
+    }
+  }
+  
+
 export default createClient;
