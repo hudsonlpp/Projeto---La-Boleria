@@ -22,5 +22,7 @@ CREATE TABLE "orders" (
   "quantity" int CHECK ("quantity" > 0 AND "quantity" < 5),
   "createdAt" timestamp NOT NULL DEFAULT NOW(),
   "totalPrice" numeric CHECK ("totalPrice" > 0),
-  "isDelivered" boolean DEFAULT FALSE
+  "isDelivered" BOOLEAN DEFAULT FALSE,
+  FOREIGN KEY (clientId) REFERENCES clients (id),
+  FOREIGN KEY (cakeId) REFERENCES cakes (id)
 );

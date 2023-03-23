@@ -27,7 +27,7 @@ SET default_table_access_method = heap;
 CREATE TABLE public.cakes (
     id integer NOT NULL,
     name character varying NOT NULL,
-    price numeric,
+    price numeric NOT NULL,
     image character varying NOT NULL,
     description text,
     CONSTRAINT cakes_price_check CHECK ((price > (0)::numeric))
@@ -225,11 +225,27 @@ ALTER TABLE ONLY public.orders
 
 
 --
+-- Name: orders orders_cakeId_fkey1; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.orders
+    ADD CONSTRAINT "orders_cakeId_fkey1" FOREIGN KEY ("cakeId") REFERENCES public.cakes(id);
+
+
+--
 -- Name: orders orders_clientId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.orders
     ADD CONSTRAINT "orders_clientId_fkey" FOREIGN KEY ("clientId") REFERENCES public.clients(id);
+
+
+--
+-- Name: orders orders_clientId_fkey1; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.orders
+    ADD CONSTRAINT "orders_clientId_fkey1" FOREIGN KEY ("clientId") REFERENCES public.clients(id);
 
 
 --
